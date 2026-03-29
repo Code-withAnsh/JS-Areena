@@ -19,7 +19,7 @@
             const slug = urlParams.get('slug');
             if (slug) {
                 // Start fetching early, before external scripts block
-                const apiOrigin = (window.location.port !== '5001') ? `http://${window.location.hostname}:5001` : '';
+                const apiOrigin = window.location.hostname === 'localhost' ? 'http://localhost:5001' : 'https://js-areena.onrender.com';
                 window.problemDataPromise = fetch(apiOrigin + '/api/problems/' + slug)
                     .then(res => res.ok ? res.json() : Promise.reject('Not found'));
             }
