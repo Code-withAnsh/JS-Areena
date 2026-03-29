@@ -2,7 +2,7 @@
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? `http://localhost:5001/api`
-    : `https://jsarena-backend.onrender.com/api`
+  : `https://js-areena.onrender.com/api`
 
 // Utility to show toast notifications
 const showToast = (message, type = 'success') => {
