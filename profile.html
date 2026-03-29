@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - JSArena</title>
+  <link rel="stylesheet" href="/frontend/css/global.css">
+  <link rel="stylesheet" href="/frontend/css/dashboard.css">
+  <style>
+    .profile-header {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--accent-green-alpha);
+      color: var(--accent-green);
+      font-size: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      border: 2px solid var(--accent-green);
+    }
+
+    .profile-info h1 {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="toast-container"></div>
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <a href="/">JSArena</a>
+    </div>
+    <div class="nav-links">
+      <a href="/problems.html">Problems</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <div id="user-links" style="display:flex; gap: 24px; align-items: center;">
+        <span id="user-name-span" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+        <a href="/dashboard.html">Dashboard</a>
+        <button id="logout-btn" class="btn-secondary">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-container">
+    <div id="profile-content">
+      <!-- Injected by JS -->
+    </div>
+  </main>
+
+  <script src="/frontend/js/global.js"></script>
+  <script src="/frontend/js/profile.js"></script>
+</body>
+
+</html>

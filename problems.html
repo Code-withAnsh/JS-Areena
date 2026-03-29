@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problems - JSArena</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/problems.css">
+
+    <!-- Early Pre-fetch Script -->
+    <script>
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 1;
+            const type = urlParams.get('type') || '';
+            const difficulty = urlParams.get('difficulty') || '';
+            const category = urlParams.get('category') || '';
+            const search = urlParams.get('search') || '';
+            const sort = urlParams.get('sort') || 'topicOrder';
+
+            let apiQuery = `?page=${page}&limit=20&sort=${sort}`;
+            if (type) apiQuery += `&type=${encodeURIComponent(type)}`;
+            if (difficulty) apiQuery += `&difficulty=${encodeURIComponent(difficulty)}`;
+            if (category) apiQuery += `&category=${encodeURIComponent(category)}`;
+            if (search) apiQuery += `&search=${encodeURIComponent(search)}`;
+
+            // Start fetching problems early
+            const apiOrigin = (window.location.port !== '5001') ? `http://${window.location.hostname}:5001` : '';
+            window.problemsDataPromise = fetch(apiOrigin + '/api/problems' + apiQuery).then(res => res.json());
+            window.initialApiQuery = apiQuery; // Store for verification
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="/">JSArena</a>
+        </div>
+        <div class="nav-links">
+            <a href="/problems.html" style="color:var(--accent-green)">Problems</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <div id="auth-links" style="display:none; gap: 24px;">
+                <a href="/login.html" class="btn-secondary">Log In</a>
+                <a href="/register.html" class="btn-primary">Sign Up</a>
+            </div>
+            <div id="user-links" style="display:none; gap: 24px; align-items: center;">
+                <span id="user-name-span" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+                <a href="/admin.html" id="admin-link"
+                    style="display:none; color: var(--accent-green); font-weight: bold;">Admin Panel</a>
+                <a href="/dashboard.html">Dashboard</a>
+                <button id="logout-btn" class="btn-secondary">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="progress-bar-top" id="top-progress-bar" style="display: none;">
+        <div class="progress-info">You've solved <span id="solved-count">0</span> / <span
+                id="total-prob-count">300</span> problems</div>
+        <div class="progress-segments">
+            <div class="segment segment-easy" id="seg-easy" style="width: 0%"></div>
+            <div class="segment segment-medium" id="seg-med" style="width: 0%"></div>
+            <div class="segment segment-hard" id="seg-hard" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <main class="problems-layout">
+        <aside class="sidebar filters-panel">
+            <h3>Filters</h3>
+
+            <div class="filter-group">
+                <h4>Type</h4>
+                <label><input type="radio" name="type" value="" checked> All</label>
+                <label><input type="radio" name="type" value="JS"> JavaScript</label>
+                <label><input type="radio" name="type" value="DSA"> DSA</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Difficulty</h4>
+                <label><input type="checkbox" class="diff-check" value="Easy"> Easy</label>
+                <label><input type="checkbox" class="diff-check" value="Medium"> Medium</label>
+                <label><input type="checkbox" class="diff-check" value="Hard"> Hard</label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Category</h4>
+                <select id="category-select">
+                    <option value="">All Categories</option>
+                    <option value="Variables & Data Types">Variables & Data Types</option>
+                    <option value="Operators">Operators</option>
+                    <option value="Type Coercion">Type Coercion</option>
+                    <option value="Strings">Strings</option>
+                    <option value="Numbers & Math">Numbers & Math</option>
+                    <option value="Control Flow">Control Flow</option>
+                    <option value="Loops">Loops</option>
+                    <option value="Functions">Functions</option>
+                    <option value="Array Methods">Array Methods</option>
+                    <option value="Objects Deep Dive">Objects Deep Dive</option>
+                    <option value="Logic Algo Part 1">Logic Algo Part 1</option>
+                    <option value="Objects">Objects (Final)</option>
+                    <option value="Scope">Scope</option>
+                    <option value="Hoisting">Hoisting</option>
+                    <option value="Closures">Closures</option>
+                    <option value="Advanced HOFs (Reduce)">Advanced HOFs</option>
+                    <option value="ES6+ Deep Dive">ES6+ Deep Dive</option>
+                    <option value="Timers">Timers</option>
+                </select>
+            </div>
+
+            <button class="btn-secondary" id="reset-filters" style="width:100%; margin-top:16px;">Reset Filters</button>
+        </aside>
+
+        <div class="main-content">
+            <div class="controls-bar">
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search problems..." autocomplete="off">
+                    <!-- Autocomplete dropdown can go here -->
+                    <div id="autocomplete-results" class="autocomplete-dropdown" style="display:none;"></div>
+                </div>
+
+                <select id="sort-select" class="sort-select">
+                    <option value="topicOrder">Sort by: Topic Order</option>
+                    <option value="difficulty">Sort by: Difficulty</option>
+                    <option value="acceptanceRate">Sort by: Acceptance Rate</option>
+                </select>
+            </div>
+
+            <div class="table-info-container">
+                <div class="table-info" id="table-info">Showing 0 of 0 problems</div>
+                <div class="page-selector">
+                    <label for="jump-to-page">Jump to:</label>
+                    <select id="jump-to-page" class="sort-select" style="width: auto;">
+                        <!-- Options will be populated by JS -->
+                        <option value="1">Page 1</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="problems-table">
+                    <thead>
+                        <tr>
+                            <th style="width:50px;">#</th>
+                            <th style="width:40px;">Status</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Difficulty</th>
+                            <th>Acceptance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="problems-tbody">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 40px;">
+                                <div class="loader"
+                                    style="margin: 0 auto; width: 40px; height: 40px; border-width: 4px;"></div>
+                                <div style="margin-top: 10px; color: var(--text-secondary);">Loading problems...</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination-controls">
+                <button id="prev-page" class="btn-secondary" disabled>← Prev</button>
+                <span id="page-indicator">Page 1 of 1</span>
+                <button id="next-page" class="btn-secondary" disabled>Next →</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="/frontend/js/global.js" defer></script>
+    <script src="/frontend/js/problems.js" defer></script>
+</body>
+
+</html>

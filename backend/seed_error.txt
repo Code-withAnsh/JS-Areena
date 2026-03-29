@@ -1,0 +1,22 @@
+MongoDB Connected: ac-z8b0mwd-shard-00-00.tepuzrk.mongodb.net
+DSA Batch 1 Question Generation Loaded.
+Current problems in DB: 524
+MongoBulkWriteError: E11000 duplicate key error collection: desi-leetcode.problems index: slug_1 dup key: { slug: "find-maximum-in-array" }
+    at OrderedBulkOperation.handleWriteError (/Users/shivmanisingh/desi leetcode/backend/node_modules/mongodb/lib/bulk/common.js:860:22)
+    at resultHandler (/Users/shivmanisingh/desi leetcode/backend/node_modules/mongodb/lib/bulk/common.js:350:27)
+    at /Users/shivmanisingh/desi leetcode/backend/node_modules/mongodb/lib/utils.js:297:28
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 11000,
+  writeErrors: [ { err: [Object], index: 0 } ],
+  result: BulkWriteResult {
+    insertedCount: 0,
+    matchedCount: 0,
+    modifiedCount: 0,
+    deletedCount: 0,
+    upsertedCount: 0,
+    upsertedIds: {},
+    insertedIds: {}
+  },
+  insertedDocs: [],
+  [Symbol(errorLabels)]: Set(0) {}
+}

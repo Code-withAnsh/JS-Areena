@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1a1a1a;
+  --border: #2a2a2a;
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #888888;
+
+  --accent-green: #00ff88;
+  --accent-green-alpha: rgba(0, 255, 136, 0.2);
+
+  --accent-yellow: #ffd700;
+  --accent-yellow-alpha: rgba(255, 215, 0, 0.2);
+
+  --accent-red: #ff4757;
+  --accent-red-alpha: rgba(255, 71, 87, 0.2);
+
+  --accent-blue: #4da6ff;
+  --accent-purple: #b44dff;
+
+  --shadow: 0 4px 24px rgba(0, 255, 136, 0.08);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-primary);
+}
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: var(--accent-green);
+}
+
+/* BUTTONS */
+.btn-primary {
+  background-color: var(--accent-green);
+  color: var(--bg-primary);
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px var(--accent-green-alpha);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--text-primary);
+}
+
+/* FORMS */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-green);
+}
+
+/* CARDS */
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  border-color: var(--accent-green-alpha);
+  box-shadow: var(--shadow);
+}
+
+/* BADGES */
+.difficulty-badge {
+  padding: 4px 8px;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.difficulty-easy {
+  background-color: var(--accent-green-alpha);
+  color: var(--accent-green);
+  border-color: rgba(0, 255, 136, 0.4);
+}
+
+.difficulty-medium {
+  background-color: var(--accent-yellow-alpha);
+  color: var(--accent-yellow);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+
+.difficulty-hard {
+  background-color: var(--accent-red-alpha);
+  color: var(--accent-red);
+  border-color: rgba(255, 71, 87, 0.4);
+}
+
+/* NOTIFICATION TOAST */
+#toast-container {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  background-color: var(--bg-secondary);
+  border-left: 4px solid var(--accent-green);
+  padding: 16px 24px;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+  min-width: 250px;
+}
+
+.toast-error {
+  border-left-color: var(--accent-red);
+}
+
+/* LOADER */
+.loader {
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--accent-green);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* MOBILE RESPONSIVE TWEAKS */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar {
+    padding: 16px 24px;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--bg-secondary);
+    flex-direction: column;
+    padding-top: 80px;
+    border-left: 1px solid var(--border);
+    transition: right 0.3s ease;
+    z-index: 100;
+    align-items: flex-start;
+    padding-left: 32px;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  #auth-links,
+  #user-links {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 16px;
+    width: 100%;
+  }
+}

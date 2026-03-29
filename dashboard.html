@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - JSArena</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/dashboard.css">
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="/">JSArena</a>
+        </div>
+        <div class="nav-links">
+            <a href="/problems.html">Problems</a>
+            <a href="/leaderboard.html">Leaderboard</a>
+            <div id="user-links" style="display:flex; gap: 24px; align-items: center;">
+                <span id="user-name-span" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+                <a href="/admin.html" id="admin-link"
+                    style="display:none; color: var(--accent-green); font-weight: bold;">Admin Panel</a>
+                <a href="/profile.html">Profile</a>
+                <button id="logout-btn" class="btn-secondary">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <h1 id="greeting">Welcome back!</h1>
+            <p class="subtitle" id="streak-text">🔥 0-day streak</p>
+        </header>
+
+        <section class="stats-row">
+            <div class="card stat-box">
+                <h3>Total Solved</h3>
+                <div class="stat-value" id="total-solved">0/300</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="solved-fill"></div>
+                </div>
+            </div>
+            <div class="card stat-box">
+                <h3>Current Streak</h3>
+                <div class="stat-value" id="current-streak">0</div>
+                <div class="stat-label">Days</div>
+            </div>
+            <div class="card stat-box">
+                <h3>Longest Streak</h3>
+                <div class="stat-value" id="longest-streak">0</div>
+                <div class="stat-label">Days</div>
+            </div>
+            <div class="card stat-box">
+                <h3>Badges Earned</h3>
+                <div class="stat-value" id="badges-count">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="card progress-section">
+                <h2>Difficulty Progress</h2>
+                <div class="difficulty-stats">
+                    <div class="diff-block">
+                        <span class="diff-label difficulty-easy">Easy</span>
+                        <span class="diff-count" id="easy-solved">0</span>
+                    </div>
+                    <div class="diff-block">
+                        <span class="diff-label difficulty-medium">Medium</span>
+                        <span class="diff-count" id="medium-solved">0</span>
+                    </div>
+                    <div class="diff-block">
+                        <span class="diff-label difficulty-hard">Hard</span>
+                        <span class="diff-count" id="hard-solved">0</span>
+                    </div>
+                    <div class="diff-block">
+                        <span class="diff-label"
+                            style="background:var(--accent-blue); color:#fff; border-radius:4px; padding:2px 6px;">DSA</span>
+                        <span class="diff-count" id="dsa-solved">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card activity-section">
+                <div class="activity-header">
+                    <h2>Activity Map <span id="activity-year-label"
+                            style="font-size:0.9rem; color:var(--text-secondary);">(2026)</span></h2>
+                    <div class="contribution-count" id="total-contributions">0 contributions in the last year</div>
+                </div>
+
+                <div class="activity-wrapper">
+                    <div class="activity-main">
+                        <div class="month-labels" id="month-labels">
+                            <!-- JS will inject months here -->
+                        </div>
+                        <div class="activity-grid-container">
+                            <div class="day-labels">
+                                <span>Mon</span>
+                                <span>Wed</span>
+                                <span>Fri</span>
+                            </div>
+                            <div class="heatmap-container" id="heatmap">
+                                <!-- JS will inject grid here -->
+                            </div>
+                        </div>
+                        <div class="activity-footer">
+                            <a href="#" class="learn-link">Learn how we count contributions</a>
+                            <div class="legend">
+                                <span>Less</span>
+                                <div class="heat-cell heat-0"></div>
+                                <div class="heat-cell heat-1"></div>
+                                <div class="heat-cell heat-2"></div>
+                                <div class="heat-cell heat-3"></div>
+                                <div class="heat-cell heat-4"></div>
+                                <span>More</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="year-sidebar" id="year-sidebar">
+                        <!-- Dynamically injected by JS -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="card badges-section">
+            <h2>Your Badges</h2>
+            <div class="badges-grid" id="badges-container">
+                <!-- JS will inject badges here -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/frontend/js/global.js"></script>
+    <script src="/frontend/js/dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSArena — Master JavaScript</title>
+  <link rel="stylesheet" href="/frontend/css/global.css">
+  <link rel="stylesheet" href="/frontend/css/index.css">
+</head>
+
+<body>
+  <div id="toast-container"></div>
+
+  <canvas id="hero-canvas"></canvas>
+
+  <nav class="navbar" id="navbar">
+    <div class="logo">
+      <span>JSArena</span>
+    </div>
+    <div class="nav-links">
+      <a href="/problems.html">Problems</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <div id="auth-links" style="display:none; gap: 24px;">
+        <a href="/login.html" class="btn-secondary">Log In</a>
+        <a href="/register.html" class="btn-primary">Sign Up</a>
+      </div>
+      <div id="user-links" style="display:none; gap: 24px; align-items: center;">
+        <span id="user-name-span" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+        <a href="/admin.html" id="admin-link" style="display:none; color: var(--accent-green); font-weight: bold;">Admin
+          Panel</a>
+        <a href="/dashboard.html">Dashboard</a>
+        <button id="logout-btn" class="btn-secondary">Log Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 id="hero-title">Master <span class="accent">JavaScript</span>.<br /> One Problem at a Time.</h1>
+        <p class="hero-subtitle">300+ curated JS problems. AI-powered feedback.<br /> Track your progress. Build real
+          skills.</p>
+        <div class="hero-cta">
+          <a href="/problems.html" class="btn-primary" style="font-size: 1.1rem; padding: 12px 24px;">Start Practicing
+            →</a>
+          <a href="#features" class="btn-secondary" style="font-size: 1.1rem; padding: 12px 24px;">View Features</a>
+        </div>
+      </div>
+      <div class="hero-code">
+        <pre><code id="typewriter-code"></code></pre>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stat-card">
+        <h2 class="counter" data-target="300">0</h2><span>+</span>
+        <p>Problems</p>
+      </div>
+      <div class="stat-card">
+        <h2 class="counter" data-target="15">0</h2>
+        <p>Categories</p>
+      </div>
+      <div class="stat-card">
+        <h2>AI</h2>
+        <p>Powered Feedback</p>
+      </div>
+      <div class="stat-card">
+        <h2>Free</h2>
+        <p>Forever</p>
+      </div>
+    </section>
+
+    <section id="features" class="features-section">
+      <div class="section-header">
+        <h2>Elevate Your Skills</h2>
+      </div>
+      <div class="features-grid">
+        <div class="card feature-card">
+          <div class="icon">💻</div>
+          <h3>Smart Code Editor</h3>
+          <p>Practice in an embedded, fully featured code editor with syntax highlighting and immediate test feedback.
+          </p>
+        </div>
+        <div class="card feature-card">
+          <div class="icon">🤖</div>
+          <h3>AI Verification</h3>
+          <p>Get instant code reviews and approach suggestions from our Groq AI, guiding you like a senior engineer.
+          </p>
+        </div>
+        <div class="card feature-card">
+          <div class="icon">🔥</div>
+          <h3>Streak System</h3>
+          <p>Build consistent habits. Practice daily to maintain your streak and fill out your contribution graph.</p>
+        </div>
+        <div class="card feature-card">
+          <div class="icon">🏆</div>
+          <h3>Badge System</h3>
+          <p>Earn badges based on performance, speed, difficulty completed, and consecutive days active.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 JSArena. Built for developers.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="/frontend/js/global.js" defer></script>
+  <script src="/frontend/js/index.js" defer></script>
+</body>
+
+</html>

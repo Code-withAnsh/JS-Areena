@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - JSArena</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .leaderboard-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .user-col {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-green-alpha);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--text-secondary);
+            width: 40px;
+            text-align: center;
+        }
+
+        .rank-1 {
+            color: var(--accent-yellow);
+            font-size: 1.2rem;
+        }
+
+        .rank-2 {
+            color: silver;
+            font-size: 1.1rem;
+        }
+
+        .rank-3 {
+            color: #cd7f32;
+            font-size: 1rem;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: var(--border-radius-md);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 5%;
+            }
+
+            .table-responsive {
+                background: transparent;
+                border: none;
+                overflow-x: hidden;
+            }
+
+            .leaderboard-table {
+                width: 100%;
+                background: transparent;
+            }
+
+            .leaderboard-table thead {
+                display: none;
+            }
+
+            .leaderboard-table tbody tr {
+                display: flex;
+                flex-direction: column;
+                background-color: var(--bg-secondary);
+                border: 1px solid var(--border);
+                border-radius: var(--border-radius-md);
+                margin-bottom: 16px;
+                padding: 16px;
+            }
+
+            .leaderboard-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--border);
+                text-align: right;
+            }
+
+            .leaderboard-table td:last-child {
+                border-bottom: none;
+            }
+
+            .leaderboard-table td::before {
+                font-weight: 600;
+                color: var(--text-secondary);
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                margin-right: 16px;
+            }
+
+            .leaderboard-table td:nth-child(1)::before {
+                content: "Rank";
+            }
+
+            .leaderboard-table td:nth-child(2)::before {
+                content: "User";
+            }
+
+            .leaderboard-table td:nth-child(3)::before {
+                content: "Solved";
+            }
+
+            .leaderboard-table td:nth-child(4)::before {
+                content: "Streak";
+            }
+
+            .leaderboard-table td:nth-child(5)::before {
+                content: "Badges";
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="/">JSArena</a>
+        </div>
+        <div class="nav-links">
+            <a href="/problems.html">Problems</a>
+            <a href="/leaderboard.html" style="color:var(--accent-green)">Leaderboard</a>
+            <div id="auth-links" style="display:none; gap: 24px;">
+                <a href="/login.html" class="btn-secondary">Log In</a>
+                <a href="/register.html" class="btn-primary">Sign Up</a>
+            </div>
+            <div id="user-links" style="display:none; gap: 24px; align-items: center;">
+                <span id="user-name-span" style="color: var(--text-secondary); font-size: 0.9rem;"></span>
+                <a href="/admin.html" id="admin-link"
+                    style="display:none; color: var(--accent-green); font-weight: bold;">Admin Panel</a>
+                <a href="/dashboard.html">Dashboard</a>
+                <button id="logout-btn" class="btn-secondary">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="header">
+            <h1>Global Leaderboard</h1>
+            <p style="color:var(--text-secondary)">Top 50 Coders</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px; text-align: center;">Rank</th>
+                        <th>User</th>
+                        <th>Solved</th>
+                        <th>Streak</th>
+                        <th>Badges</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Rendered via JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="/frontend/js/global.js"></script>
+    <script src="/frontend/js/leaderboard.js"></script>
+</body>
+
+</html>

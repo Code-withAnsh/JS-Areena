@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Detail - JSArena</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/problem-detail.css">
+
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/darcula.min.css">
+
+    <!-- Early Pre-fetch Script -->
+    <script>
+        (function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            if (slug) {
+                // Start fetching early, before external scripts block
+                const apiOrigin = (window.location.port !== '5001') ? `http://${window.location.hostname}:5001` : '';
+                window.problemDataPromise = fetch(apiOrigin + '/api/problems/' + slug)
+                    .then(res => res.ok ? res.json() : Promise.reject('Not found'));
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <div id="toast-container"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="javascript:history.back()">← Back</a>
+            <span style="color:var(--text-secondary); font-size: 1rem; margin-left:16px;">JSArena Editor</span>
+        </div>
+        <div id="user-links" style="display:flex; gap: 24px; align-items: center;">
+            <a href="/dashboard.html">Dashboard</a>
+            <button id="logout-btn" class="btn-secondary">Log Out</button>
+        </div>
+    </nav>
+
+    <main class="split-layout">
+        <div class="left-panel">
+            <div class="problem-header">
+                <h1 id="problem-title">Loading...</h1>
+                <div class="problem-meta">
+                    <span class="difficulty-badge" id="problem-difficulty">...</span>
+                    <span class="category-tag" id="problem-category">...</span>
+                    <span class="acceptance-text" id="problem-acceptance">Acceptance: ...%</span>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="description">Description</button>
+                <button class="tab-btn" data-tab="hints">Hints</button>
+                <button class="tab-btn" data-tab="solution">Solution</button>
+                <button class="tab-btn" data-tab="submissions">Submissions</button>
+            </div>
+
+            <div class="tab-content active" id="tab-description">
+                <!-- Markdown/HTML injected here -->
+            </div>
+
+            <div class="tab-content" id="tab-hints">
+                <div id="hints-container"></div>
+                <button id="get-ai-hint-btn" class="btn-secondary" style="margin-top: 16px;">Get AI Hint ✨</button>
+                <div id="ai-hint-box"
+                    style="margin-top: 16px; padding: 16px; background:var(--bg-tertiary); display:none; border-radius:4px; border-left: 3px solid var(--accent-purple);">
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-solution">
+                <div id="solution-lock">
+                    <p>Solve the problem to unlock the official solution!</p>
+                    <button id="force-unlock-btn" class="btn-secondary">Show Solution Anyway</button>
+                </div>
+                <div id="solution-content" style="display:none;"></div>
+            </div>
+
+            <div class="tab-content" id="tab-submissions">
+                <div id="submissions-list"></div>
+            </div>
+        </div>
+
+        <!-- Resizer -->
+        <div class="resizer" id="resizer"></div>
+
+        <div class="right-panel">
+            <div class="editor-header">
+                <span style="color:var(--accent-green); font-weight:600; font-size:0.9rem;">index.js</span>
+                <div>
+                    <button id="reset-code-btn" class="btn-secondary"
+                        style="padding:4px 8px; font-size:0.8rem;">Reset</button>
+                </div>
+            </div>
+
+            <div class="editor-container" id="editor-container"></div>
+
+            <div class="editor-footer">
+                <div class="footer-left">
+                    <button id="run-btn" class="btn-secondary">Run Code</button>
+                    <button id="submit-btn" class="btn-primary">Submit</button>
+                </div>
+                <div class="footer-right">
+                    <button id="get-help-btn" class="btn-ai" style="display:none;">Get Help 💡</button>
+                </div>
+            </div>
+
+            <!-- Test Cases & Output Panel -->
+            <div class="output-panel">
+                <div class="output-tabs">
+                    <button class="out-tab-btn active" data-tab="testcases">Testcases</button>
+                    <button class="out-tab-btn" data-tab="result">Result</button>
+                </div>
+
+                <div class="out-content active" id="out-testcases">
+                    <div id="testcase-buttons" style="display:flex; gap:8px; margin-bottom:12px;"></div>
+                    <div id="testcase-details"
+                        style="background:var(--bg-tertiary); padding:12px; border-radius:4px; font-family:'JetBrains Mono', monospace; font-size:0.9rem;">
+                    </div>
+                </div>
+
+                <div class="out-content" id="out-result">
+                    <div id="result-status" style="font-size:1.2rem; font-weight:700; margin-bottom:12px;"></div>
+                    <div id="result-details">Run code to see results.</div>
+
+                    <!-- AI Verdict Section -->
+                    <div id="ai-verdict-panel" class="ai-verdict-box" style="display:none;">
+                        <h4>🤖 AI Feedback</h4>
+                        <p id="ai-explanation" style="margin-bottom:8px;"></p>
+                        <p id="ai-suggestions" style="color:var(--text-secondary);"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/frontend/js/global.js" defer></script>
+
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"
+        defer></script>
+
+    <!-- canvas-confetti for celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
+
+    <script src="/frontend/js/problem-detail.js" defer></script>
+
+    <!-- AI Solution Modal -->
+    <div id="ai-solution-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="ai-solution-header">
+                <h2>🤖 AI Solution Helper</h2>
+            </div>
+            <div id="ai-solution-body">
+                <!-- Skeleton Loader -->
+                <div class="skeleton-loader" id="ai-skeleton">
+                    <div class="skeleton-block" style="width: 30%; height: 24px; margin-bottom: 20px;"></div>
+                    <div class="skeleton-block" style="width: 90%; height: 16px; margin-bottom: 10px;"></div>
+                    <div class="skeleton-block" style="width: 85%; height: 16px; margin-bottom: 30px;"></div>
+                    <div class="skeleton-block" style="width: 25%; height: 24px; margin-bottom: 20px;"></div>
+                    <div class="skeleton-block" style="width: 80%; height: 16px; margin-bottom: 10px;"></div>
+                    <div class="skeleton-block" style="width: 75%; height: 16px; margin-bottom: 30px;"></div>
+                    <div class="skeleton-block" style="width: 100%; height: 200px; border-radius: 8px;"></div>
+                </div>
+
+                <div id="ai-solution-real-content" style="display:none;">
+                    <section class="solution-section">
+                        <h3>🧠 Approach</h3>
+                        <p id="ai-approach-text"></p>
+                    </section>
+                    <section class="solution-section">
+                        <h3>📋 Step-by-Step</h3>
+                        <ol id="ai-steps-list"></ol>
+                    </section>
+                    <section class="solution-section">
+                        <h3>💻 Solution Code</h3>
+                        <div class="code-wrapper">
+                            <pre><code id="ai-solution-code" class="javascript"></code></pre>
+                        </div>
+                    </section>
+                    <section class="solution-section" id="ai-complexity-section">
+                        <h3>⚡ Complexity</h3>
+                        <p id="ai-complexity-text"></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

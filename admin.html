@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Admin Control - JSArena</title>
+    <link rel="stylesheet" href="/frontend/css/global.css">
+    <link rel="stylesheet" href="/frontend/css/admin.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="admin-body">
+    <div id="toast-container"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo"><a href="/" style="font-family: 'Space Grotesk', sans-serif;">JS<span
+                    style="color: var(--admin-accent);">Arena</span> Admin</a></div>
+        <div class="nav-links">
+            <span id="user-name-span" style="color: var(--admin-text-muted); font-size: 0.9rem;"></span>
+            <a href="/dashboard.html">Main Dashboard</a>
+            <button onclick="handleLogout()" class="btn-primary"
+                style="background: var(--admin-accent); border: none;">Logout</button>
+        </div>
+    </nav>
+
+    <main class="admin-container">
+        <header class="admin-header">
+            <div>
+                <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">Control Center</h1>
+                <p style="color: var(--admin-text-muted); margin-top: 5px;">Manage your platform and elite challenges
+                </p>
+            </div>
+            <div class="admin-version"
+                style="font-size: 0.8rem; background: var(--admin-border); padding: 5px 12px; border-radius: 20px;">v2.0
+                Premium</div>
+        </header>
+
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('upload')">🚀 Upload Challenge</button>
+            <button class="tab-btn" onclick="switchTab('users')">👥 User Management</button>
+        </div>
+
+        <!-- Upload Question Section -->
+        <section id="upload-section" class="admin-section active">
+            <div class="card">
+                <form id="problem-form">
+                    <div
+                        style="margin-bottom: 30px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px;">
+                        <h3 style="margin: 0; color: var(--admin-accent);">1. Basic Information</h3>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Challenge Title</label>
+                            <input type="text" id="title" required placeholder="e.g., Array Master: Two Sum">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="category">
+                                <option value="Fundamentals">Fundamentals</option>
+                                <option value="DSA">DSA</option>
+                                <option value="Advanced JS">Advanced JS</option>
+                                <option value="Web APIs">Web APIs</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Difficulty Level</label>
+                            <select id="difficulty">
+                                <option value="Easy">🟢 Easy</option>
+                                <option value="Medium">🟡 Medium</option>
+                                <option value="Hard">🔴 Hard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Topic</label>
+                            <input type="text" id="topic" placeholder="e.g., Matrices, Recursion">
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin: 40px 0 30px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px;">
+                        <h3 style="margin: 0; color: var(--admin-accent);">2. Content & Constraints</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Problem Description (Markdown Ready)</label>
+                        <textarea id="description" required
+                            placeholder="Describe the challenge in detail..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Operational Constraints</label>
+                        <textarea id="constraints" style="height: 80px;"
+                            placeholder="e.g., O(n) time complexity, Space < 128MB"></textarea>
+                    </div>
+
+                    <div
+                        style="margin: 40px 0 30px; border-bottom: 1px solid var(--admin-border); padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0; color: var(--admin-accent);">3. Verification & Testing</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Starter Solution & Solution Logic</label>
+                        <textarea id="solution" style="font-family: 'Fira Code', monospace; background: #010409;"
+                            required>// Provide the correct solution here
+function solve(input) {
+  // Logic goes here
+  return result;
+}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Test Case Builder</label>
+                        <div id="test-cases-builder" class="test-cases-container">
+                            <!-- Dynamic rows injected here -->
+                            <div class="test-case-row">
+                                <input type="text" class="tc-input" placeholder="Input (e.g. [1,2],3)" required>
+                                <input type="text" class="tc-expected" placeholder="Expected Output" required>
+                                <button type="button" class="btn-remove-case" style="visibility: hidden;">🗑️</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add-case" onclick="addTestCaseRow()">+ Add Test Case</button>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <button type="submit" class="btn-submit">Initialize Challenge 🚀</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Manage Users Section -->
+        <section id="users-section" class="admin-section">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="margin: 0;">Elite Users Directory</h3>
+                    <input type="text" id="user-search" placeholder="Search by name or mobile..."
+                        style="width: 250px; padding: 8px 12px; font-size: 0.85rem;">
+                </div>
+
+                <div id="users-list-container" style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User Persona</th>
+                                <th>Identity (Mobile)</th>
+                                <th>Security (Hash)</th>
+                                <th>Operations</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/frontend/js/global.js"></script>
+    <script src="/frontend/js/admin.js"></script>
+</body>
+
+</html>

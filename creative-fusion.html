@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Fusion | Frontend Design Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,700;10..48,800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/frontend/css/creative-fusion.css">
+</head>
+
+<body>
+  <div class="background-orbs" aria-hidden="true">
+    <span class="orb orb-one"></span>
+    <span class="orb orb-two"></span>
+    <span class="orb orb-three"></span>
+  </div>
+  <div class="noise-layer" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="#top" class="brand">Fusion<span>Lab</span></a>
+    <nav class="site-nav">
+      <a href="#process">Process</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#metrics">Impact</a>
+      <button class="btn btn-ghost magnetic" data-target="#contact">Collaborate</button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Experimental Frontend Studio</p>
+        <h1 class="reveal">We design websites that feel <span id="dynamic-word">alive</span>, not assembled.</h1>
+        <p class="hero-subtitle reveal">
+          Every interaction is intentional: expressive typography, kinetic layouts, immersive color systems, and
+          handcrafted motion.
+        </p>
+        <div class="hero-actions reveal">
+          <button class="btn btn-primary magnetic" data-target="#gallery">Explore the Work</button>
+          <button class="btn btn-secondary" data-target="#contact">Start a Concept</button>
+        </div>
+      </div>
+
+      <aside class="hero-panel reveal">
+        <p class="panel-title">Current Sprint</p>
+        <h2>Project: Atlas Frame</h2>
+        <ul>
+          <li>Brand direction: urban editorial</li>
+          <li>Interaction pass: complete</li>
+          <li>Accessibility score target: 95+</li>
+        </ul>
+        <div class="panel-badges">
+          <span>Typography System</span>
+          <span>Motion Blueprint</span>
+          <span>Visual QA</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="process" class="section">
+      <div class="section-head">
+        <p class="eyebrow reveal">How We Build</p>
+        <h2 class="reveal">A process built for high-impact digital experiences.</h2>
+      </div>
+      <div class="process-grid">
+        <article class="process-card tilt reveal" data-label="01">
+          <h3>Story Mapping</h3>
+          <p>We shape a narrative hierarchy before writing a single line of CSS.</p>
+        </article>
+        <article class="process-card tilt reveal" data-label="02">
+          <h3>Visual System</h3>
+          <p>Color, type, spacing, and texture become reusable tokens with purpose.</p>
+        </article>
+        <article class="process-card tilt reveal" data-label="03">
+          <h3>Motion Direction</h3>
+          <p>Animations support comprehension, pacing, and delight across breakpoints.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="section-head">
+        <p class="eyebrow reveal">Selected Concepts</p>
+        <h2 class="reveal">Tap a concept to preview its creative DNA.</h2>
+      </div>
+
+      <div class="gallery-layout">
+        <div class="gallery-list" role="tablist" aria-label="Concept list">
+          <button class="gallery-item reveal active" role="tab" aria-selected="true" data-project="Aether Market"
+            data-tag="Commerce Reimagined"
+            data-copy="A tactile storefront experience with bold editorial blocks, kinetic product reveals, and playful cursor feedback."
+            data-chips="UI Architecture|Launch Storytelling|Performance Tuning"
+            data-surface="linear-gradient(135deg, #f46f43, #ffbc5f)">
+            Aether Market
+          </button>
+          <button class="gallery-item reveal" role="tab" aria-selected="false" data-project="Monsoon Journal"
+            data-tag="Culture + Narrative"
+            data-copy="A reading platform that uses flowing section transitions and layered photography to create cinematic pacing."
+            data-chips="Content Strategy|Typographic Rhythm|Adaptive Grids"
+            data-surface="linear-gradient(120deg, #0ea5a4, #37c6a5)">
+            Monsoon Journal
+          </button>
+          <button class="gallery-item reveal" role="tab" aria-selected="false" data-project="Northline Atelier"
+            data-tag="Luxury Portfolio"
+            data-copy="An immersive brand site using oversized type, intentional white space, and handcrafted micro-interactions."
+            data-chips="Brand Systems|Visual Narrative|Motion Library"
+            data-surface="linear-gradient(120deg, #22356f, #4e66bf)">
+            Northline Atelier
+          </button>
+        </div>
+
+        <article class="gallery-preview reveal" aria-live="polite">
+          <div id="preview-surface" class="preview-surface"></div>
+          <p id="preview-tag" class="preview-tag">Commerce Reimagined</p>
+          <h3 id="preview-title">Aether Market</h3>
+          <p id="preview-copy">A tactile storefront experience with bold editorial blocks, kinetic product reveals, and playful
+            cursor feedback.</p>
+          <ul id="preview-chips" class="preview-chips">
+            <li>UI Architecture</li>
+            <li>Launch Storytelling</li>
+            <li>Performance Tuning</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="metrics" class="section">
+      <div class="section-head compact">
+        <p class="eyebrow reveal">Measured Impact</p>
+      </div>
+      <div class="metrics-grid">
+        <article class="metric reveal">
+          <span class="count" data-target="147">0</span>
+          <p>frontend launches shipped</p>
+        </article>
+        <article class="metric reveal">
+          <span class="count" data-target="39">0</span>
+          <p>design systems stabilized</p>
+        </article>
+        <article class="metric reveal">
+          <span class="count" data-target="96">0</span>
+          <p>average lighthouse score</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="ticker-section" aria-label="Studio highlights">
+      <div class="ticker-track">
+        <span>Motion-first storytelling</span>
+        <span>Responsive by default</span>
+        <span>Accessible interactions</span>
+        <span>Design systems with personality</span>
+        <span>Motion-first storytelling</span>
+        <span>Responsive by default</span>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="contact-card reveal">
+        <p class="eyebrow">Ready to Build</p>
+        <h2>Let's shape your next standout website.</h2>
+        <p>Share your idea and we will translate it into a fully interactive web experience.</p>
+        <form class="contact-form" action="#" method="post">
+          <label>
+            Project Name
+            <input type="text" placeholder="E.g. Pixel Foundry" required>
+          </label>
+          <label>
+            Goal
+            <textarea rows="3" placeholder="What should this website make people feel?" required></textarea>
+          </label>
+          <button type="button" class="btn btn-primary magnetic">Draft Creative Brief</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed as a frontend playground. <span id="year"></span></p>
+  </footer>
+
+  <script src="/frontend/js/creative-fusion.js" defer></script>
+</body>
+
+</html>
