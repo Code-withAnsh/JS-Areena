@@ -26,9 +26,9 @@
             if (search) apiQuery += `&search=${encodeURIComponent(search)}`;
 
             // Start fetching problems early
-            const apiOrigin = (window.location.port !== '5001') ? `http://${window.location.hostname}:5001` : '';
-            window.problemsDataPromise = fetch(apiOrigin + '/api/problems' + apiQuery).then(res => res.json());
-            window.initialApiQuery = apiQuery; // Store for verification
+const apiOrigin = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5001' 
+    : 'https://js-areena.onrender.com';
         })();
     </script>
 </head>
