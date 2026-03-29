@@ -1,8 +1,8 @@
 // global.js
 
-const API_BASE_URL = window.location.port !== '5001'
-    ? `http://${window.location.hostname}:5001/api`
-    : '/api';
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? `http://localhost:5001/api`
+    : `https://jsarena-backend.onrender.com/api`
 
 // Utility to show toast notifications
 const showToast = (message, type = 'success') => {
